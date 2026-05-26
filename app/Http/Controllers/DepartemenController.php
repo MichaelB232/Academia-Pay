@@ -2,8 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\departemen;
+use App\Models\Departemen;
 use Illuminate\Http\Request;
+
+// | HTTP      | URL                 | Controller | Nama Route       |
+// | --------- | ------------------- | ---------- | ---------------- |
+// | GET       | /products           | index()    | products.index   |
+// | GET       | /products/create    | create()   | products.create  |
+// | POST      | /products           | store()    | products.store   |
+// | GET       | /products/{id}      | show()     | products.show    |
+// | GET       | /products/{id}/edit | edit()     | products.edit    |
+// | PUT/PATCH | /products/{id}      | update()   | products.update  |
+// | DELETE    | /products/{id}      | destroy()  | products.destroy |
+
 
 class DepartemenController extends Controller
 {
@@ -12,25 +23,25 @@ class DepartemenController extends Controller
      */
     public function index()
     {
-        $departements = departemen::all();
-        return view('departemen', compact('departements'));
+        $departements = Departemen::all();
+        return view('departemen.index', compact('departements'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
-    {
-        $request->validate(['nama_departemen' => 'required']);
-        
-    }
+    public function create(Request $request) {}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(["nama_departemen" => 'required']);
+        Departemen::create([
+            'nama_departemen' => "nama_departemen"
+        ]);
+        return redirect('/departemens')->with('success', "Departemen berhasil ditambahkan");
     }
 
     /**
@@ -46,7 +57,7 @@ class DepartemenController extends Controller
      */
     public function edit(departemen $departemen)
     {
-        //
+        // return view('departemen.edit',)
     }
 
     /**

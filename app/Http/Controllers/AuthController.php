@@ -15,6 +15,7 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
+        
 
         $user = User::where('username', $request->username)->first();
 
