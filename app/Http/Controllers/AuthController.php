@@ -21,9 +21,9 @@ class AuthController extends Controller
         if (!$user) {
             return back()->with('error', "Username tidak ditemukan");
         }
-        // if (!Hash::check($request->password, $user->password)) {
-        //     return back()->with('error', "Password Salah");
-        // }
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->with('error', "Password Salah");
+        }
         Auth::login($user);
         return redirect('/dashboard');
     }
