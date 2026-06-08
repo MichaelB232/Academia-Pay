@@ -1,3 +1,4 @@
+@extends('layout.app')
 <!DOCTYPE html>
 <html>
 

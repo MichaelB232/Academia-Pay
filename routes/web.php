@@ -21,3 +21,13 @@ Route::get(
     [DashboardController::class, 'index']
 );
 Route::resource('departemen', DepartemenController::class);
+
+// master-data
+Route::get(
+    '/master-data',function()
+    // [DashboardController::class, 'index']
+    {
+        return view("master-data/index");
+    }
+);
+
