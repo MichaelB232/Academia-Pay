@@ -12,9 +12,9 @@ class Employee extends Model
     //
     protected $fillable = ["nama_karyawan", "niy", "status_aktif", "gaji_pokok", "position_id"];
 
-    public function jabatan()
+    public function position()
     {
-        return $this->belongTo(Position::class);
+        return $this->belongsTo(Position::class);
     }
     public function payrolls()
     {

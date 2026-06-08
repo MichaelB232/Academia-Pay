@@ -12,6 +12,6 @@ class DisciplineAssessment extends Model
 
     public function periods()
     {
-        return $this->hasMany(Period::class);
+        return $this->belongsTo(Period::class);
     }
 }
