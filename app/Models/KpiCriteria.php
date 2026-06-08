@@ -8,7 +8,7 @@ use App\Models\Position;
 class KpiCriteria extends Model
 {
     //
-    protected $fillable = ['position_id', 'nama_kriteria', 'deskripsi', 'metode_ukur', 'integrasi_kpi', 'bobot'];
+    protected $fillable = ['position_id', 'nama_kriteria', 'deskripsi', 'metode_ukur', 'jenis_tunjangan', 'bobot'];
 
     public function position()
     {

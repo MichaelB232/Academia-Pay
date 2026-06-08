@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
             $table->String("nama_kriteria")->isNotEmpty();
             $table->string('deskripsi');
+            $table->string('jenis_tunjangan');
             $table->double('bobot')->isNotEmpty();
             $table->timestamps();
         });
