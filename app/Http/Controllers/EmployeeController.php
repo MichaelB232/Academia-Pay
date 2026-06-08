@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
-class KaryawanController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $karyawans = Karyawan::all();
-        return view('karyawans.index', compact('karyawans'));
+        //
     }
 
     /**
@@ -35,7 +33,7 @@ class KaryawanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Karyawan $karyawan)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +41,7 @@ class KaryawanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Karyawan $karyawan)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +49,7 @@ class KaryawanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Karyawan $karyawan)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +57,7 @@ class KaryawanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Karyawan $karyawan)
+    public function destroy(string $id)
     {
         //
     }

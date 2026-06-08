@@ -32,7 +32,7 @@ class DepartemenController extends Controller
      */
     public function create(Request $request) {}
 
-    /**
+    /** 
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
