@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedTinyInteger('bulan');
             $table->year('tahun');
+            $table->string('status');
             $table->timestamps();
         });
     }

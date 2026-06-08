@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->foreignId('period_id')->constrained('periods')->onDelete('cascade');
-            $table->foreignId('kpi_criteria_id')->constrained('periods')->onDelete('cascade');
-            $table->double('nilai')->isNotEmpty();
+            $table->foreignId('kpi_criteria_id')->constrained('kpi_criteria')->onDelete('cascade');
+            $table->double('skor_kpi')->isNotEmpty();
             $table->timestamps();
         });
     }

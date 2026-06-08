@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kpi_criteria', function (Blueprint $table) {
             $table->id();
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
-            $table->String("nama_krietria")->isNotEmpty();
+            $table->String("nama_kriteria")->isNotEmpty();
             $table->string('deskripsi');
             $table->double('bobot')->isNotEmpty();
             $table->timestamps();

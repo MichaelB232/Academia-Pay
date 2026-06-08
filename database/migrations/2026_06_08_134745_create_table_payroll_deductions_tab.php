@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_payroll_deductions_tab', function (Blueprint $table) {
+        Schema::create('payroll_deductions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('payroll_id')->constrained('payrolls');
             $table->string('nama_potongan')->isNotEmpty();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_payroll_deductions_tab');
+        Schema::dropIfExists('payroll_deductions');
     }
 };

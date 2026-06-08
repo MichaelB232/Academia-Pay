@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("niy")->unique()->isNotEmpty();
             $table->boolean("status_aktif");
             $table->double("gaji_pokok")->isNotEmpty(); #Gaji Pokok
-            $table->foreignId("jabatan_id")->constrained('positions')->onDelete('cascade');
+            $table->foreignId("position_id")->constrained('positions')->onDelete('cascade');
             $table->timestamps();
         });
     }
