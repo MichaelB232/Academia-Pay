@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained('employees');
             $table->foreignId('period_id')->constrained('periods')->onDelete('cascade');
             $table->double('gaji_pokok');
-            $table->double('total_tunajangan');
+            $table->double('total_tunjangan');
             $table->double('total_potongan');
             $table->double('gaji_bersih');
             $table->timestamps();

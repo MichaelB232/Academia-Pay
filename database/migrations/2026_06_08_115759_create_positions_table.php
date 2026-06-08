@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("nama_jabatan");
             $table->foreignId("departemen_id")->constrained('departemens')->onDelete('cascade');
+            $table->double('nominal_tunjangan')->isNotEmpty();
             $table->timestamps();
         });
     }
