@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("nama_karyawan")->isNotEmpty();
             $table->string("niy")->unique()->isNotEmpty();
-            $table->boolean("status_aktif");
-            $table->double("gaji_pokok")->isNotEmpty(); #Gaji Pokok
+            $table->boolean("status_aktif")->default(true);
+            $table->double("gaji_pokok")->default(0.0)->isNotEmpty(); #Gaji Pokok
             $table->foreignId("position_id")->constrained('positions')->onDelete('cascade');
             $table->timestamps();
         });

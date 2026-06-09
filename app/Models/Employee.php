@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\Payroll;
-use app\Models\Position;
-use app\Models\KpiAssessment;
+use App\Models\Payroll;
+use App\Models\Position;
+use App\Models\KpiAssessment;
 
 class Employee extends Model
 {
