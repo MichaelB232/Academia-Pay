@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kpi_criteria', function (Blueprint $table) {
+        Schema::create('kpi_criterias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
             $table->String("nama_kriteria")->isNotEmpty();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kpi_criteria');
+        Schema::dropIfExists('kpi_criterias');
     }
 };

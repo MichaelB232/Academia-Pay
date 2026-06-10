@@ -5,32 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
 use App\Models\Payroll;
-use App\Models\Period;
+use App\Services\PeriodService;
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(PeriodService $periodService)
     {
+
         $user = Auth::user();
 
-        $totalEmployee = Employee::count(); //Total staff
+        $total_employee = Employee::count(); //Total staff
 
         $month = request('month', now()->month);
         $year = request('year', now()->year);
 
-        $period_id = 1; //Mengambil id dari periode bulan dan tahun tersebut
+        $current_period = $periodService->ensureCurrentPeriodExists();
 
-        if(!$period_id){
-            return view('dashboard',([ 'user'=>$user,'payrollSummary'=>0,'unpaidEmployees'=>collect(),'totalEmployee'=>$totalEmployee,'totalUnpaidEmployees'=>0]));
-        }
+        // if(!$current_period){
+        //     return view('dashboard',([ 'user'=>$user,'payroll_summary'=>0,'unpaid_employees'=>collect(),'total_employee'=>$total_employee,'total_unpaid_employees'=>0]));
+        // }
 
-        $payrollSummary = Payroll::where('status','belum_dibayar')
-            ->where('period_id',$period_id)->sum('gaji_bersih'); //Total Gaji bulan ini yang sudah dihitung tapi belum dibayar
+        $payroll_summary = Payroll::where('status','belum_dibayar')
+            ->where('period_id',$current_period)->sum('gaji_bersih'); //Total Gaji bulan ini yang sudah dihitung tapi belum dibayar
 
-        $baseQuery = Payroll::with('employee')->where('status','belum_dibayar')->where('period_id',$period_id);
+        $base_query = Payroll::with('employee')->where('status','belum_dibayar')->where('period_id',$current_period);
 
-        $unpaidEmployees = $baseQuery->get(); // Daftar karyawan yang belum dibayar gajinya
-        $totalUnpaidEmployees = $baseQuery->count();  // Daftar karyawan yang belum dibayar (namun sudah dihitung)
+        $unpaid_employees = $base_query->get(); // Daftar karyawan yang belum dibayar gajinya
+        $total_unpaid_employees = $base_query->count();  // Daftar karyawan yang belum dibayar (namun sudah dihitung)
 
-        return view('dashboard', compact('user','payrollSummary','unpaidEmployees','totalEmployee','totalUnpaidEmployees'));
+        return view('dashboard', compact('user','payroll_summary','unpaid_employees','total_employee','total_unpaid_employees'));
     }
 }

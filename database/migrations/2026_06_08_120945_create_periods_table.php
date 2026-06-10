@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('bulan');
             $table->year('tahun');
             $table->string('status');
+            $table->unique(['tahun','bulan']);
             $table->timestamps();
         });
     }
