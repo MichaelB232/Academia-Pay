@@ -8,7 +8,7 @@ use App\Models\PayrollDeduction;
 
 class Payroll extends Model
 {
-    protected $fillable = ["employee_id", "period_id", "gaji_pokok", "total_tunjangan", "total_potongan", "gaji_bersih"];
+    protected $fillable = ["employee_id", "period_id", "gaji_pokok", "total_tunjangan", "total_potongan", "gaji_bersih","status"];
 
     public function employee()
     {

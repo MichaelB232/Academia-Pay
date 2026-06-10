@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('total_tunjangan');
             $table->double('total_potongan');
             $table->double('gaji_bersih');
+            $table->string('status')->default('belum_dibayar');
             $table->timestamps();
         });
     }
