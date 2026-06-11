@@ -39,7 +39,7 @@
                     <p class="text-xs text-amber-500">Total Gaji Bulan Ini</p>
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-2xl font-bold text-amber-400">Rp
-                            {{ number_format($payrollSummary, 0, ',', '.') }}</h3>
+                            {{ number_format($payroll_summary->gaji_bersih, 0, ',', '.') }}</h3>
                         <button class="text-gray-400 hover:text-white">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -48,7 +48,7 @@
                         <i class="fa-solid fa-users text-xl text-gray-400"></i>
                         <div>
                             <p class="text-xs text-gray-400">Jumlah Staff</p>
-                            <p class="text-sm font-bold">{{ $totalEmployee }} Orang</p>
+                            <p class="text-sm font-bold">{{ $total_employees }} Orang</p>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <p class="text-xl font-bold text-gray-800"> 80% Selesai</p>
                         <div class="w-full bg-gray-200 h-2 rounded-full mt-2">
                             {{-- <div class="bg-[#0a855c] h-2 rounded-full"
-                                style="width: {{ $payrollSummary->persentase_selesai }}%"></div>
+                                style="width: {{ $payroll_summary->persentase_selesai }}%"></div>
                         </div> --}}
                         </div>
                     </div>
@@ -82,15 +82,15 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100">
-                                    @foreach ($unpaidEmployees as $payroll)
+                                    @foreach ($unpaid_employees as $unpaid_payroll)
                                         <tr>
                                             <td class="p-3 text-gray-800 font-medium">
-                                                {{ $payroll->employee->nama_karyawan }}
+                                                {{ $unpaid_payroll->employee->nama_karyawan }}
                                             </td>
-                                            <td class="p-3 text-gray-500">{{ $payroll->employee->niy }}</td>
+                                            <td class="p-3 text-gray-500">{{ $unpaid_payroll->employee->niy }}</td>
                                             <td class="p-3 text-center">
-                                                {{-- <a href="{{ route('pages.daftar-karyawan.show', $payroll->id) }}"
-                                                    class="text-[#0a855c] border border-[#0a855c] px-3 py-1 rounded text-xs font-medium hover:bg-[#0a855c] hover:text-white transition">Detail</a> --}}
+                                                <a href="{{ route('daftar-karyawan.show', $unpaid_payroll->employee_id) }}"
+                                                    class="text-[#0a855c] border border-[#0a855c] px-3 py-1 rounded text-xs font-medium hover:bg-[#0a855c] hover:text-white transition">Detail</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="border-t border-gray-100 pt-4 mt-4">
-                        <p class="text-sm font-bold text-gray-700">Total: {{ $totalUnpaidEmployees }} Guru</p>
+                        <p class="text-sm font-bold text-gray-700">Total: {{ $total_unpaid_employees }} Karyawan</p>
                     </div>
                 </div>
 
