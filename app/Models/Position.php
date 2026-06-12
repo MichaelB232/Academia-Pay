@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Departemen;
+use App\Models\Departement;
 use App\Models\Employee;
 use App\Models\KpiCriteria;
 
@@ -34,9 +34,9 @@ class Position extends Model
 {
 
     protected $fillable = ["nama_jabatan", "departement_id", "nominal_tunjangan"];
-    public function departemen()
+    public function departement()
     {
-        return $this->belongsTo(Departemen::class);
+        return $this->belongsTo(Departement::class);
     }
     public function employees()
     {

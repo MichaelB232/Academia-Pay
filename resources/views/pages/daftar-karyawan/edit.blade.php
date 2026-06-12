@@ -37,14 +37,14 @@
 
                 <div>
                     <label
-                        class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Departemen</label>
-                    <select id="departemen-select" required
+                        class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Departement</label>
+                    <select id="departement-select" required
                         class="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#0a855c] focus:bg-white transition cursor-pointer">
-                        <option value="">Pilih Departemen</option>
-                        @foreach ($departemens as $dept)
+                        <option value="">Pilih Departement</option>
+                        @foreach ($departements as $dept)
                             <option value="{{ $dept->id }}"
-                                {{ old('department_id', $employee->position->departemen_id ?? '') == $dept->id ? 'selected' : '' }}>
-                                {{ $dept->nama_departemen }}
+                                {{ old('department_id', $employee->position->departement_id ?? '') == $dept->id ? 'selected' : '' }}>
+                                {{ $dept->nama_departement }}
                             </option>
                         @endforeach
                     </select>
@@ -87,7 +87,7 @@
         // Memastikan kode dijalankan setelah DOM siap
         document.addEventListener('DOMContentLoaded', function() {
             const positionsByDepartment = {!! json_encode($positions) !!};
-            const departmentSelect = document.getElementById('departemen-select');
+            const departmentSelect = document.getElementById('departement-select');
             const positionSelect = document.getElementById('jabatan-select');
             const selectedPosition = {{ old('position_id', $employee->position_id) ?? 'null' }};
 
@@ -121,7 +121,7 @@
             // Inisialisasi awal saat halaman pertama kali dimuat
             populatePositions(departmentSelect.value);
 
-            // Event listener saat departemen diubah
+            // Event listener saat departement diubah
             departmentSelect.addEventListener('change', function() {
                 populatePositions(this.value);
             });

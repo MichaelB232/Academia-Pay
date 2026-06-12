@@ -22,31 +22,31 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // DEPARTEMENS
-        DB::table('departemens')->insert([
-            ['nama_departemen' => 'Management'],
-            ['nama_departemen' => 'Human Resources'],
-            ['nama_departemen' => 'Finance'],
+        DB::table('departements')->insert([
+            ['nama_departement' => 'Management'],
+            ['nama_departement' => 'Human Resources'],
+            ['nama_departement' => 'Finance'],
         ]);
 
         // POSITIONS
         DB::table('positions')->insert([
             [
                 'nama_jabatan' => 'Manager',
-                'departemen_id' => 1,
+                'departement_id' => 1,
                 'nominal_tunjangan' => 3000000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nama_jabatan' => 'HR Staff',
-                'departemen_id' => 2,
+                'departement_id' => 2,
                 'nominal_tunjangan' => 1000000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'nama_jabatan' => 'Finance Staff',
-                'departemen_id' => 3,
+                'departement_id' => 3,
                 'nominal_tunjangan' => 1000000,
                 'created_at' => now(),
                 'updated_at' => now(),

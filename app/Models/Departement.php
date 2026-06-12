@@ -17,7 +17,7 @@ use App\Models\Position;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Departemen whereNamaDepartemen($value)
  * @mixin \Eloquent
  */
-class Departemen extends Model
+class Departement extends Model
 {
     //
     protected $fillable = ["nama_departemen"];

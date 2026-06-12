@@ -28,7 +28,11 @@ class EmployeeService
     public function update(Employee $employee, array $data): bool
     {
         return DB::transaction(function () use ($employee, $data) {
+            $old_position_id = $employee->id;
             $employee->update($data);
+            if (isset($data['position_id']) && ($old_position_id != $employee->position_id)) {
+                $this->refreshCurrentKpiAssessments($employee);
+            }
             $this->updateCurrentPayroll($employee);
             return true;
         });
@@ -42,10 +46,24 @@ class EmployeeService
         Payroll::create(['employee_id' => $employee->id, 'period_id' => $period->id, 'gaji_pokok' => $employee->gaji_pokok, 'gaji_bersih' => $employee->gaji_pokok]);
     }
 
-    private function updateCurrentPayroll(Employee $employee)
+    private function updateCurrentPayroll(Employee $employee): void
     {
-        $period = Period::where('status', 'open')->first();
+        $period = Period::where('status', 'open')->firstOrFail();
         Payroll::where('employee_id', $employee->id)->where('period_id', $period->id)->where('status', 'belum_dibayar')->update(['gaji_pokok' => $employee->gaji_pokok]);
+    }
+    private function refreshCurrentKpiAssessments(Employee $employee): void
+    {
+        $kpiAssessmentRows = [];
+        $timestamp = now();
+        $period = Period::where('status', 'open')->firstOrFail();
+
+        KpiAssessment::where('employee_id', $employee->id)->where('period_id', $period->id)->delete();
+        $criterias = KpiCriteria::where('position_id', $employee->position_id)->get();
+
+        foreach ($criterias as $criteria) {
+            $kpiAssessmentRows[] = ['employee_id' => $employee->id, 'period_id' => $period->id, 'kpi_criteria_id' => $criteria->id, 'created_at' => $timestamp, 'updated_at' => $timestamp];
+        }
+        KpiAssessment::insert($kpiAssessmentRows);
     }
     private function generateKpiAssessments(Period $period, Employee $employee, Collection $criterias): void
     {

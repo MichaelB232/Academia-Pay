@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
 
         $user = Auth::user();
-
+        
         $total_employees = Employee::count(); //Total staffs
 
         $month = request('month', now()->month);

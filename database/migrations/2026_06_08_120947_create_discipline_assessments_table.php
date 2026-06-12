@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId("period_id")->constrained('periods')->onDelete('cascade');
             $table->double('skor_kedisiplinan')->default(0); #Dalam bentuk persenan yang diisi oleh BIRO SDM
             $table->string('status')->default("belum_dinilai");
+            $table->unique(['employee_id', 'period_id']);
             $table->timestamps();
         });
     }

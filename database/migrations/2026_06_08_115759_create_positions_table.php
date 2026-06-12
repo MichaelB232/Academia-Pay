@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->string("nama_jabatan");
-            $table->foreignId("departemen_id")->constrained('departemens')->onDelete('cascade');
+            $table->foreignId("departement_id")->constrained('departements')->onDelete('cascade');
             $table->double('nominal_tunjangan')->isNotEmpty();
             $table->timestamps();
         });

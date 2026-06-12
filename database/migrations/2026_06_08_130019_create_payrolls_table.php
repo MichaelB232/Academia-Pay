@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('total_potongan')->default(0);
             $table->double('gaji_bersih');
             $table->string('status')->default('belum_dibayar');
+            $table->unique(['employee_id', 'period_id']);
             $table->timestamps();
         });
     }

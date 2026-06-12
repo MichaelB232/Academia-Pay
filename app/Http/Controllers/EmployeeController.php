@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Employee;
-use Illuminate\Validation\Rule;
-use App\Models\Departemen;
-use App\Models\Position;
-use App\Services\EmployeeService;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Models\Departement;
+use App\Models\Employee;
+use App\Models\Position;
+use App\Services\EmployeeService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\Rule;
 
 
 class EmployeeController extends Controller
@@ -21,11 +22,32 @@ class EmployeeController extends Controller
         $this->employeeService = $employeeService;
     }
 
-    public function index() //Menampilkan semua data
+    public function index(Request $request) //Menampilkan semua data
     {
         $user = Auth::user();
-        $employees = Employee::paginate(10);
-        return view('pages.daftar-karyawan.index', compact('employees', 'user'));
+        $departements = Departement::all();
+
+        $query = Employee::query()->with(['position.departement']);
+
+        //Search by nama_karyawan or NIY
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_karyawan', 'like', "%{$search}%")->orWhere('niy', 'like', "%{$search}%");
+            });
+        }
+        //Filter by Departement
+        if ($request->filled("departement_id")) {
+            $departement_id = $request->departement_id;
+
+            $query->whereHas('position', function ($q) use ($departement_id) {
+                $q->where('departement_id', $departement_id);
+            });
+        }
+
+        $employees = $query->latest()->paginate(10)->withQueryString();
+        return view('pages.daftar-karyawan.index', compact('employees', 'user', 'departements'));
     }
 
     /**
@@ -33,10 +55,9 @@ class EmployeeController extends Controller
      */
     public function create() //Menampilkan bagian create daftar karyawan
     {
-        //
-        $departemens = Departemen::all();
-        $positions = Position::all()->groupBy('departemen_id');
-        return view('pages.daftar-karyawan.create', compact(['departemens', 'positions']));
+        $departements = Departement::all();
+        $positions = Position::all()->groupBy('departement_id');
+        return view('pages.daftar-karyawan.create', compact(['departements', 'positions']));
     }
 
     /**
@@ -44,8 +65,18 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        $this->employeeService->create($request->validated());
-        return redirect()->route('daftar-karyawan.index');
+        $lockKey = 'submit_lock' . Auth::id() . '_' . md5($request->niy);
+        $lock = Cache::lock($lockKey, 5);
+
+        if (!$lock->get()) {
+            return redirect()->route('daftar-karyawan.index');
+        }
+        try {
+            $this->employeeService->create($request->validated());
+            return redirect()->route('daftar-karyawan.index')->with('success', 'Data karyawan berhasil ditambahkan');
+        } finally {
+            $lock->release();
+        }
     }
 
     /**
@@ -53,7 +84,6 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        //
         $employee = Employee::findOrFail($id);
 
         return view('pages.daftar-karyawan.show', compact('employee'));
@@ -66,9 +96,9 @@ class EmployeeController extends Controller
     {
         //
         $employee = Employee::findOrFail($id);
-        $departemens = Departemen::all();
-        $positions = Position::all()->groupBy('departemen_id');
-        return view('pages.daftar-karyawan.edit', compact('employee', 'departemens', 'positions'));
+        $departements = Departement::all();
+        $positions = Position::all()->groupBy('departement_id');
+        return view('pages.daftar-karyawan.edit', compact('employee', 'departements', 'positions'));
     }
 
     /**
@@ -78,8 +108,17 @@ class EmployeeController extends Controller
     {
         //
         $employee = Employee::findOrFail($id);
-        $this->employeeService->update($employee, $request->validated());
-        return redirect()->route('daftar-karyawan.index');
+        $lockKey = 'submit_lock' . Auth::id() . '_' . md5($request->niy);
+        $lock = Cache::lock($lockKey, 5);
+        if (!$lock->get()) {
+            return redirect()->route('daftar-karyawan.index');
+        }
+        try {
+            $this->employeeService->update($employee, $request->validated());
+            return redirect()->route('daftar-karyawan.index')->with('success', 'Data Karyawan berhasil di update');
+        } finally {
+            $lock->release();
+        }
     }
 
     /**

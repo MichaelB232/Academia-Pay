@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('kpi_criteria_id')->constrained('kpi_criterias')->onDelete('cascade');
             $table->double('skor_kpi')->default(0)->isNotEmpty();
             $table->string('status')->default("belum_dinilai");
+            $table->unique(['employee_id', 'period_id', 'kpi_criteria_id']);
             $table->timestamps();
         });
     }

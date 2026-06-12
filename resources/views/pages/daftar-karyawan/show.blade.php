@@ -35,9 +35,9 @@
             <div class="border-t border-gray-100 px-8 py-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                 <div>
                     <label
-                        class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Departemen</label>
+                        class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Departement</label>
                     <p class="text-gray-800 font-medium bg-gray-50 px-4 py-2.5 rounded-xl border border-gray-100">
-                        {{ $employee->position->departemen->nama_departemen }}
+                        {{ $employee->position->departement->nama_departement }}
                     </p>
                 </div>
 

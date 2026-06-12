@@ -35,12 +35,12 @@
 
                 <div>
                     <label
-                        class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Departemen</label>
-                    <select id="departemen-select" required
+                        class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Departement</label>
+                    <select id="departement-select" required
                         class="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#0a855c] focus:bg-white transition cursor-pointer">
-                        <option value="">Pilih Departemen</option>
-                        @foreach ($departemens as $dept)
-                            <option value="{{ $dept->id }}">{{ $dept->nama_departemen }}</option>
+                        <option value="">Pilih Departement</option>
+                        @foreach ($departements as $dept)
+                            <option value="{{ $dept->id }}">{{ $dept->nama_departement }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -49,7 +49,7 @@
                     <label class="block text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Jabatan</label>
                     <select name="position_id" id="jabatan-select" disabled required
                         class="w-full bg-gray-50/50 border @error('position_id') border-red-500 focus:border-red-500 @else border-gray-200 focus:border-[#0a855c] @enderror rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:bg-white transition cursor-pointer disabled:opacity-50">
-                        <option value="">Pilih Departemen Terlebih Dahulu</option>
+                        <option value="">Pilih Departement Terlebih Dahulu</option>
                     </select>
                     @error('position_id')
                         <p class="text-xs text-red-500 mt-1 font-medium">{{ $message }}</p>
@@ -90,13 +90,13 @@
         // Inject data $positions dari Laravel ke object JavaScript menggunakan json_encode
         const positionsByDepartment = {!! json_encode($positions) !!};
 
-        document.getElementById('departemen-select').addEventListener('change', function() {
+        document.getElementById('departement-select').addEventListener('change', function() {
             const departmentId = this.value;
             const jabatanSelect = document.getElementById('jabatan-select');
 
             // Reset jika opsi kosong dipilih
             if (!departmentId || !positionsByDepartment[departmentId]) {
-                jabatanSelect.innerHTML = '<option value="">Pilih Departemen Terlebih Dahulu</option>';
+                jabatanSelect.innerHTML = '<option value="">Pilih Departement Terlebih Dahulu</option>';
                 jabatanSelect.disabled = true;
                 return;
             }
