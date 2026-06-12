@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departemen;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 
 // | HTTP      | URL                 | Controller | Nama Route       |
@@ -16,15 +16,15 @@ use Illuminate\Http\Request;
 // | DELETE    | /products/{id}      | destroy()  | products.destroy |
 
 
-class DepartemenController extends Controller
+class DepartementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $departements = Departemen::all();
-        return view('departemen.index', compact('departements'));
+        $departements = Departement::all();
+        return view('departement.index', compact('departements'));
     }
 
     /**
@@ -37,17 +37,17 @@ class DepartemenController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(["nama_departemen" => 'required']);
-        Departemen::create([
-            'nama_departemen' => "nama_departemen"
+        $request->validate(["nama_departement" => 'required']);
+        Departement::create([
+            'nama_departement' => "nama_departement"
         ]);
-        return redirect('/departemens')->with('success', "Departemen berhasil ditambahkan");
+        return redirect('/departements')->with('success', "Departement berhasil ditambahkan");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(departemen $departemen)
+    public function show(departement $departement)
     {
         //
     }
@@ -55,7 +55,7 @@ class DepartemenController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(departemen $departemen)
+    public function edit(departement $departement)
     {
         // return view('departemen.edit',)
     }
@@ -63,7 +63,7 @@ class DepartemenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, departemen $departemen)
+    public function update(Request $request, departement $departement)
     {
         //
     }
@@ -71,7 +71,7 @@ class DepartemenController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(departemen $departemen)
+    public function destroy(departement $departement)
     {
         //
     }

@@ -111,13 +111,14 @@
                 </table>
             </div>
 
-            <div
-                class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-gray-100 mt-4 text-xs text-gray-500">
-                <p>Menampilkan {{ $employees->firstItem() ?? 0 }} Hingga {{ $employees->lastItem() ?? 0 }} dari
-                    {{ $employees->total() }} data</p>
-                <div>
-                    {{ $employees->links('pagination::tailwind') }}
-                </div>
+            <div class="flex justify-between items-center pt-6 border-t border-gray-100 mt-4">
+                <p class="text-xs text-gray-500">
+                    Menampilkan {{ $employees->firstItem() ?? 0 }}
+                    - {{ $employees->lastItem() ?? 0 }}
+                    dari {{ $employees->total() }} data
+                </p>
+
+                {{ $employees->links() }}
             </div>
         </div>
 

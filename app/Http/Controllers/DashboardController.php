@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
 
         $user = Auth::user();
-        
+
         $total_employees = Employee::count(); //Total staffs
 
         $month = request('month', now()->month);
@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $payroll_summary = Payroll::where('status', 'belum_dibayar')->where('period_id', $current_period)->selectRaw('SUM(gaji_pokok + total_tunjangan - total_potongan) as gaji_bersih')->first(); //Total Gaji bulan ini yang sudah dihitung tapi belum dibayar
         $base_query = Payroll::with('employee')->where('status', 'belum_dibayar')->where('period_id', $current_period);
 
-        $unpaid_employees = $base_query->get(); // Daftar karyawan yang belum dibayar gajinya
+        $unpaid_employees = $base_query->paginate(5)->withQueryString(); // Daftar karyawan yang belum dibayar gajinya
         $total_unpaid_employees = $base_query->count();  // Daftar karyawan yang belum dibayar (namun sudah dihitung)
 
         return view('dashboard', compact('user', 'payroll_summary', 'unpaid_employees', 'total_employees', 'total_unpaid_employees'));

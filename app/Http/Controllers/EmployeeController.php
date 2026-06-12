@@ -11,7 +11,6 @@ use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Validation\Rule;
 
 
 class EmployeeController extends Controller
@@ -46,7 +45,7 @@ class EmployeeController extends Controller
             });
         }
 
-        $employees = $query->latest()->paginate(10)->withQueryString();
+        $employees = $query->latest()->paginate(15)->onEachSide(1)->withQueryString();
         return view('pages.daftar-karyawan.index', compact('employees', 'user', 'departements'));
     }
 

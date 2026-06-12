@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Payroll;
 use App\Models\Position;
 use App\Models\KpiAssessment;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property int $id
@@ -39,6 +40,7 @@ use App\Models\KpiAssessment;
 class Employee extends Model
 {
     //
+    use HasFactory;
     protected $fillable = ["nama_karyawan", "niy", "status_aktif", "gaji_pokok", "position_id"];
 
     public function position()
