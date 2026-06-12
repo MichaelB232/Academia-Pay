@@ -34,6 +34,6 @@ class DashboardController extends Controller
         $unpaid_employees = $base_query->paginate(5)->withQueryString(); // Daftar karyawan yang belum dibayar gajinya
         $total_unpaid_employees = $base_query->count();  // Daftar karyawan yang belum dibayar (namun sudah dihitung)
 
-        return view('dashboard', compact('user', 'payroll_summary', 'unpaid_employees', 'total_employees', 'total_unpaid_employees'));
+        return view('pages/dashboard', compact('user', 'payroll_summary', 'unpaid_employees', 'total_employees', 'total_unpaid_employees'), ['pageTitle' => 'Dashboard']);
     }
 }

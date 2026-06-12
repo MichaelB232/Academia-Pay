@@ -20,7 +20,7 @@ use App\Models\Position;
 class Departement extends Model
 {
     //
-    protected $fillable = ["nama_departemen"];
+    protected $fillable = ['nama_departement'];
 
     public function positions() #Departemen mempunyai banyak jabatan/Positions
     {

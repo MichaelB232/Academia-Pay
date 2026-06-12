@@ -46,7 +46,7 @@ class EmployeeController extends Controller
         }
 
         $employees = $query->latest()->paginate(15)->onEachSide(1)->withQueryString();
-        return view('pages.daftar-karyawan.index', compact('employees', 'user', 'departements'));
+        return view('pages.daftar-karyawan.index', compact('employees', 'user', 'departements'), ['pageTitle' => 'Daftar Karyawan']);
     }
 
     /**
@@ -56,7 +56,7 @@ class EmployeeController extends Controller
     {
         $departements = Departement::all();
         $positions = Position::all()->groupBy('departement_id');
-        return view('pages.daftar-karyawan.create', compact(['departements', 'positions']));
+        return view('pages.daftar-karyawan.create', compact(['departements', 'positions']), ['pageTitle' => "Daftar Karyawan"]);
     }
 
     /**
@@ -97,7 +97,7 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
         $departements = Departement::all();
         $positions = Position::all()->groupBy('departement_id');
-        return view('pages.daftar-karyawan.edit', compact('employee', 'departements', 'positions'));
+        return view('pages.daftar-karyawan.edit', compact('employee', 'departements', 'positions'), ['pageTitle' => "Daftar Karyawan"]);
     }
 
     /**

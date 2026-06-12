@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("nama_jabatan");
             $table->foreignId("departement_id")->constrained('departements')->onDelete('cascade');
             $table->double('nominal_tunjangan')->isNotEmpty();
+            $table->unique(['nama_jabatan', 'departement_id']);
             $table->timestamps();
         });
     }

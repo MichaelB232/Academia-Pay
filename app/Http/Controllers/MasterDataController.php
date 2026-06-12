@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Departemen;
+use App\Models\Departement;
+use App\Models\Position;
 
 class MasterDataController extends Controller
 {
     public function index()
     {
-        return redirect('master-data');
+        $departements = Departement::all();
+        $positions = Position::all();
+        return view('pages.master-data.index', compact('departements', 'positions'), ['pageTitle' => "Master Data"]);
     }
 }
