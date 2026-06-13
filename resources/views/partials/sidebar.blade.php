@@ -67,7 +67,7 @@
             {{-- Master Data --}}
             <a href="{{ route('master-data.index') }}"
                 class="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition
-                    {{ request()->routeIs('master-data')
+                    {{ request()->routeIs(['master-data.*', 'departement.*', 'position.*'])
                         ? 'bg-white text-[#0a855c] shadow'
                         : 'text-white/80 hover:bg-[#086b4a] hover:text-white' }}">
 

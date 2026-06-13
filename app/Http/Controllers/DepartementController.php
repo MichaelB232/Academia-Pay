@@ -51,9 +51,9 @@ class DepartementController extends Controller
             return redirect()->route('master-data.index');
         }
         try {
-            Departement::create([
+            Departement::create(
                 $data
-            ]);
+            );
             return redirect()->route('master-data.index')->with('success', "Departement berhasil ditambahkan");
         } finally {
             $lock->release();
