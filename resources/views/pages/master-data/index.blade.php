@@ -162,9 +162,9 @@
                                     </td>
 
                                     <td class="p-3 text-center">
-                                        {{-- <a href="{{ route('kpi.index', $position->id) }}"
-                                            class="px-4 py-2 bg-[#10b981]/10 text-[#10b981] rounded-xl text-sm font-medium hover:bg-[#10b981]/20 transition"> --}}
-                                        Kelola KPI
+                                        <a href="{{ route('kpi-criteria.position', $position) }}"
+                                            class="px-4 py-2 bg-[#10b981]/10 text-[#10b981] rounded-xl text-sm font-medium hover:bg-[#10b981]/20 transition">
+                                            Kelola KPI
                                         </a>
                                     </td>
                                 </tr>

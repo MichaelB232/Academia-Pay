@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\KpiAssessmentController;
+use App\Http\Controllers\KpiCriteriaController;
 use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\PositionController;
 
@@ -28,7 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('performance-tracker', KpiAssessmentController::class); //Performance Trackker or KPIAssessment
 
     Route::resource('master-data', MasterDataController::class);
-
+    Route::get('master-data/kpi/{position}', [KpiCriteriaController::class, 'index'])->name('kpi-criteria.position');
+    Route::get('master-data/kpi/{position}/create', [KpiCriteriaController::class, 'create'])->name('kpi-criteria.create');
+    Route::resource('kpi-criteria', KpiCriteriaController::class);
     Route::Resource('position', PositionController::class);
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout'); // logout

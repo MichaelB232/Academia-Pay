@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Employee;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,9 +24,21 @@ class DatabaseSeeder extends Seeder
 
         // DEPARTEMENS
         DB::table('departements')->insert([
-            ['nama_departement' => 'Management'],
-            ['nama_departement' => 'Human Resources'],
-            ['nama_departement' => 'Finance'],
+            [
+                'nama_departement' => 'Management',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nama_departement' => 'Human Resources',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nama_departement' => 'Finance',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
 
         // POSITIONS
@@ -61,6 +73,7 @@ class DatabaseSeeder extends Seeder
                 'nama_kriteria' => 'Leadership',
                 'deskripsi' => 'Kemampuan memimpin tim',
                 'bobot' => 40,
+                'metode_ukur' => 'sudah_belum',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -69,6 +82,7 @@ class DatabaseSeeder extends Seeder
                 'nama_kriteria' => 'Decision Making',
                 'deskripsi' => 'Kemampuan mengambil keputusan',
                 'bobot' => 60,
+                'metode_ukur' => 'sudah_belum',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -77,6 +91,7 @@ class DatabaseSeeder extends Seeder
                 'nama_kriteria' => 'Discipline',
                 'deskripsi' => 'Kedisiplinan kerja',
                 'bobot' => 50,
+                'metode_ukur' => 'percentage',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -85,6 +100,7 @@ class DatabaseSeeder extends Seeder
                 'nama_kriteria' => 'Communication',
                 'deskripsi' => 'Kemampuan komunikasi',
                 'bobot' => 50,
+                'metode_ukur' => 'percentage',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -93,6 +109,7 @@ class DatabaseSeeder extends Seeder
                 'nama_kriteria' => 'Accuracy',
                 'deskripsi' => 'Ketelitian pekerjaan',
                 'bobot' => 50,
+                'metode_ukur' => 'sudah_belum',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -101,6 +118,7 @@ class DatabaseSeeder extends Seeder
                 'nama_kriteria' => 'Reporting',
                 'deskripsi' => 'Kualitas laporan',
                 'bobot' => 50,
+                'metode_ukur' => 'percentage',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

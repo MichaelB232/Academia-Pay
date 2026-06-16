@@ -89,7 +89,7 @@ class DepartementController extends Controller
             return redirect()->route('master-data.index');
         }
         try {
-            Departement::where('id', $id)->update(['nama_departement' => $request->nama_departement]);
+            Departement::where('id', $id)->update(['nama_departement' => $data['nama_departement']]);
             return redirect()->route('master-data.index')->with('Success', "Departement berhasil di edit");
         } finally {
             $lock->release();

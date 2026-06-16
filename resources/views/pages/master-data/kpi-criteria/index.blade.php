@@ -2,140 +2,127 @@
 
 @section('content')
     <div class="space-y-6">
-
-        {{-- Back Button --}}
-        <div>
-            <a href="{{ route('master-data.index') }}"
-                class="inline-flex items-center gap-2 text-[#0a855c] hover:text-[#08734f] font-medium transition">
-                <i class="fa-solid fa-arrow-left"></i>
-                Kembali ke Master Data
-            </a>
-        </div>
-
-        {{-- Position Information --}}
-        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+        @if (session('success'))
+            <div
+                class="max-w-full bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-xs transition-all">
+                <i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+        {{-- Header --}}
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="flex justify-between items-center">
 
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-800">
-                        {{ $position->nama_jabatan }}
-                    </h2>
+                    <h1 class="text-3xl font-bold text-gray-800">
+                        {{ strtoupper($position->nama_jabatan) }}
+                    </h1>
 
-                    <p class="text-gray-500 mt-1">
-                        Departement:
-                        {{ $position->departement->nama_departement }}
-                    </p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-gray-500">
+                            {{ $position->departement->nama_departement }}
+                        </span>
+
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+
+                        <span class="text-sm font-medium text-green-600">
+                            Active
+                        </span>
+                    </div>
                 </div>
 
-                <div>
-                    <a href="{{ route('kpi-criteria.create', $position->id) }}"
-                        class="bg-[#10b981] text-white px-5 py-3 rounded-xl font-semibold hover:bg-[#0d9488] transition shadow-sm">
-                        <i class="fa-solid fa-plus mr-2"></i>
-                        Tambah Indikator KPI
-                    </a>
-                </div>
+                <a href="{{ route('kpi-criteria.create', $position->id) }}"
+                    class="bg-[#10b981] hover:bg-[#0d9488] text-white px-5 py-3 rounded-xl font-semibold transition shadow-sm">
+                    <i class="fa-solid fa-plus mr-2"></i>
+                    Tambah KPI
+                </a>
 
             </div>
         </div>
 
-        {{-- KPI Table --}}
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        {{-- KPI List --}}
+        <div class="space-y-4">
 
-            <div class="mb-5">
-                <h3 class="text-xl font-bold text-gray-800">
-                    Daftar Indikator Penilaian
-                </h3>
-            </div>
+            @forelse ($kpis as $kpi)
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
 
-            <div class="overflow-x-auto">
+                    <div class="flex justify-between items-center">
 
-                <table class="w-full text-left text-sm">
+                        <div class="flex-1">
 
-                    <thead>
-                        <tr class="bg-gray-100 text-gray-600 uppercase text-xs tracking-wider">
-                            <th class="p-4 rounded-l-xl">Nama Indikator</th>
-                            <th class="p-4">Deskripsi</th>
-                            <th class="p-4">Bobot (%)</th>
-                            <th class="p-4 text-center rounded-r-xl">Aksi</th>
-                        </tr>
-                    </thead>
+                            <h3 class="text-xl font-bold text-gray-800">
+                                {{ strtoupper($kpi->nama_kriteria) }}
+                            </h3>
 
-                    <tbody class="divide-y divide-gray-100">
+                            <p class="text-sm text-gray-500 mt-1">
+                                {{ $kpi->deskripsi }}
+                            </p>
 
-                        @forelse ($kpiCriterias as $criteria)
-                            <tr class="hover:bg-gray-50 transition">
+                        </div>
 
-                                <td class="p-4 font-semibold text-gray-800">
-                                    {{ $criteria->nama_kriteria }}
-                                </td>
+                        <div class="flex items-center gap-4">
 
-                                <td class="p-4 text-gray-600">
-                                    {{ $criteria->deskripsi }}
-                                </td>
+                            {{-- Integrasi --}}
+                            <div
+                                class="px-4 py-2 rounded-lg bg-green-100 text-green-700 text-xs font-semibold min-w-[180px] text-center">
 
-                                <td class="p-4 font-semibold text-[#0a855c]">
-                                    {{ number_format($criteria->bobot, 2) }}
-                                </td>
+                                {{ strtoupper($kpi->jenis_tunjangan) }}
 
-                                <td class="p-4">
-                                    <div class="flex justify-center items-center gap-3">
+                            </div>
 
-                                        <a href="{{ route('kpi-criteria.edit', $criteria->id) }}"
-                                            class="text-blue-500 hover:text-blue-700 transition">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </a>
+                            {{-- Bobot --}}
+                            <div
+                                class="px-4 py-2 rounded-lg bg-blue-100 text-blue-700 text-xs font-semibold min-w-[120px] text-center">
 
-                                        <form action="{{ route('kpi-criteria.destroy', $criteria->id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus indikator KPI ini?')">
+                                BOBOT: {{ $kpi->bobot }}%
 
-                                            @csrf
-                                            @method('DELETE')
+                            </div>
 
-                                            <button type="submit"
-                                                class="text-red-500 hover:text-red-700 transition cursor-pointer">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
+                            {{-- Edit --}}
+                            <a href="{{ route('kpi-criteria.edit', $kpi->id) }}"
+                                class="w-11 h-11 rounded-xl bg-gray-100 hover:bg-amber-100 flex items-center justify-center transition">
 
-                                        </form>
+                                <i class="fa-solid fa-pen-to-square text-amber-600 text-lg"></i>
 
-                                    </div>
-                                </td>
+                            </a>
 
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-center py-8 text-gray-400">
-                                    Belum ada indikator KPI yang terdaftar.
-                                </td>
-                            </tr>
-                        @endforelse
+                        </div>
 
-                    </tbody>
+                    </div>
 
-                </table>
+                </div>
 
-            </div>
+            @empty
 
-            {{-- Pagination --}}
-            @if ($kpiCriterias instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                <div
-                    class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-5 mt-5 border-t border-gray-100">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
 
-                    <p class="text-xs text-gray-500">
-                        Menampilkan
-                        {{ $kpiCriterias->firstItem() ?? 0 }}
-                        -
-                        {{ $kpiCriterias->lastItem() ?? 0 }}
-                        dari
-                        {{ $kpiCriterias->total() }}
-                        data
+                    <div class="text-5xl text-gray-300 mb-3">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                    <h3 class="font-bold text-gray-700 text-lg">
+                        Belum Ada KPI
+                    </h3>
+
+                    <p class="text-gray-500 text-sm mt-1">
+                        Tambahkan indikator KPI untuk jabatan ini.
                     </p>
 
-                    {{ $kpiCriterias->links() }}
                 </div>
-            @endif
+            @endforelse
 
         </div>
 
+        {{-- Footer Action --}}
+        @if ($kpis->count())
+            <div class="flex justify-end gap-4 pt-4">
+
+                <a href="{{ route('master-data.index') }}"
+                    class="px-6 py-3 bg-gray-100 text-gray-600 rounded-xl font-semibold hover:bg-gray-200 transition">
+                    Kembali
+                </a>
+
+            </div>
+        @endif
     </div>
 @endsection

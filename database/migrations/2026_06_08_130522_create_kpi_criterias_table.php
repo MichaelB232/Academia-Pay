@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
             $table->String("nama_kriteria")->isNotEmpty();
             $table->string('deskripsi');
-            $table->string('jenis_tunjangan')->default('tunjangan_kriteria');
+            $table->string('jenis_tunjangan')->default('tunjangan_performa');
             $table->double('bobot')->isNotEmpty();
+            $table->enum('metode_ukur', ['percentage', 'sudah_belum']);
             $table->timestamps();
         });
     }
