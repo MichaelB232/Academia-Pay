@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateKpiCriteriaRequest;
 use App\Models\KpiCriteria;
 use App\Models\Position;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class KpiCriteriaController extends Controller
