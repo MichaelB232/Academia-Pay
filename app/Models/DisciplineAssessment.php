@@ -28,7 +28,6 @@ class DisciplineAssessment extends Model
 {
     //
     protected $fillable = ['employee_id', 'period_id', 'skor_kedisiplinan'];
-
     public function periods()
     {
         return $this->belongsTo(Period::class);

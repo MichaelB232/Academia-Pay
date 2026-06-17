@@ -16,7 +16,8 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        $positions = Position::with('departement')->latest()->paginate(10);
+        return view('pages.master-data.position.index', compact('positions'), ['pageTitle' => 'Daftar Jabatan']);
     }
 
     /**

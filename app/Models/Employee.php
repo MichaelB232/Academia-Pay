@@ -55,7 +55,7 @@ class Employee extends Model
     {
         return $this->hasMany(KpiAssessment::class);
     }
-    public function disciplineAssesments()
+    public function disciplineAssessments()
     {
         return $this->hasMany(DisciplineAssessment::class);
     }

@@ -27,8 +27,8 @@ class DepartementController extends Controller
      */
     public function index()
     {
-        $departements = Departement::all();
-        return view('departement.index', compact('departements'), ['pageTitle' => 'Department']);
+        $departements = Departement::latest()->paginate(10);
+        return view('pages.master-data.departement.index', compact('departements'), ['pageTitle' => 'Daftar Department']);
     }
 
     /**
